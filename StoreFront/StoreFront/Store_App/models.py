@@ -3,37 +3,8 @@ from django.core.validators import MinLengthValidator
 
 
 class ProductCategory(models.Model):
-    COMPUTER_MOUSE = 'COMPUTER_MOUSE'
-    MOUSE_PAD = 'MOUSE_PAD'
-    KEYBOARD = 'KEYBOARD'
-    HEADPHONES = 'HEADPHONES'
-    SCREEN = 'SCREEN'
-    PREBUILT_PC = 'PREBUILT_PC'
-    LAPTOP = 'LAPTOP'
-    CABLE = 'CABLE'
-    SPEAKERS = 'SPEAKERS'
-    PRINTER = 'PRINTER'
-    OTHER = 'OTHER'
-    CHARGER = 'Charger'
-
-    CHOICES = (
-        (COMPUTER_MOUSE, 'Computer Mouse'),
-        (MOUSE_PAD, 'Mouse Pad'),
-        (KEYBOARD, 'Keyboard'),
-        (HEADPHONES, 'Headphones'),
-        (SCREEN, 'Screen'),
-        (PREBUILT_PC, 'PreBuilt PC'),
-        (LAPTOP, 'Laptop'),
-        (CABLE, 'Cable'),
-        (SPEAKERS, 'Speakers'),
-        (PRINTER, 'Printer'),
-        (OTHER, 'Other'),
-        (CHARGER, 'Charger'),
-    )
-
     name = models.CharField(
         max_length=40,
-        choices=CHOICES,
         blank=False,
         null=False,
     )
@@ -97,61 +68,21 @@ class Customer(models.Model):
         max_length=30,
     )
 
-    full_name = f'{first_name} {last_name}'
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
     def __str__(self):
         return self.full_name
 
 
-class Order(models.Model):
-    PENDING = 'PENDING'
-    CONFIRMED = 'CONFIRMED'
-    DELIVERED = 'DELIVERED'
-
-    CHOICES = (
-        (PENDING, 'Pending'),
-        (CONFIRMED, 'Confirmed'),
-        (DELIVERED, 'Delivered'),
-    )
-
+class OrderStatus(models.Model):
     status = models.CharField(
-        choices=CHOICES,
-        blank=False,
-        null=False,
         max_length=30,
-    )
-
-    customer = models.ForeignKey(
-        Customer,
-        on_delete=models.CASCADE,
-    )
-
-    products = models.ManyToManyField(
-        Product,
-        through='OrderItem',
-    )
-
-    order_date = models.DateTimeField(
-        auto_now_add=True,
+        blank=False,
+        null=False
     )
 
     def __str__(self):
-        return f'Order: {self.id} - Made by {Customer.full_name}'
-
-
-class OrderItem(models.Model):
-    order = models.ForeignKey(
-        Order,
-        on_delete=models.CASCADE,
-    )
-
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE
-    )
-
-    quantity = models.IntegerField(
-        blank=False,
-        null=False,
-    )
+        return self.status
 
