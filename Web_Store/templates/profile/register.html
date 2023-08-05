@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
+{% load custom_filter %}
 
 
 {% block content %}
-    <main>
-        <form>
-            {% csrf_token %}
-            {{ form }}
-        </form>
-    </main>
+    <div class="login-register">
+        <div class="login-register-box">
+                <form class="login-register-box-form" method="post">
+                    {% csrf_token %}
+                    {{ form.username.errors }}
+                    {{ form.username|placeholder:'Username'}}
+
+                    {{ form.email.errors }}
+                    {{ form.email|placeholder:'Email' }}
+
+                    {{ form.password1.errors }}
+                    {{ form.password2.errors }}
+                    {{ form.password1|placeholder:'Password' }}
+                    {{ form.password2|placeholder:'Confirm Password' }}
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+    </div>
 {% endblock %}

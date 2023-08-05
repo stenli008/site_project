@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from Web_Store.Store_App.models import CustomerUser
+
+admin.site.register(CustomerUser)
