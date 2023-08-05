@@ -10,18 +10,20 @@
 </head>
 <body>
 <header class="header">
-    <h1 class="site-title"><a href="">TechStore</a></h1>
+    <h1 class="site-title"><a href="{% url 'store' %}">TechStore</a></h1>
     <nav class="header-nav">
         <ul class="header-nav-ul">
-            {#  show if a user is not logged in  #}
+
             <li><a href="">About us</a></li>
-            <li><a href="">Register</a></li>
-            <li><a href="">Login</a></li>
-            {# end show if a user is not logged in #}
-            {# show if the user is logged in#}
-            <li><a href=""><i class="fa-solid fa-user"></i></a></li>
-            <li><a id="cart" href=""><i class="fa-solid fa-cart-shopping"></i></a></li>
-            {# end show if a user is logged in#}
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href=""><i class="fa-solid fa-user"></i></a></li>
+                <li><a id="cart" href=""><i class="fa-solid fa-cart-shopping"></i></a></li>
+
+            {% else %}
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
 
         </ul>
     </nav>

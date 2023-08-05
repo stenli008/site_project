@@ -1,3 +1,48 @@
-.main-login-register {
+.login-register {
     margin: auto;
+}
+
+
+.login-register-box-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px 30px 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 9px 2px rgb(105 127 69);
+    background-color: #2b2b2b;
+}
+
+.login-register-box-form input {
+    margin: 12px;
+    width: 270px;
+    height: 36px;
+    border: none;
+    border-radius: 2px;
+    background-color: #36383a;
+}
+
+.login-register-box-form input[name='username']::placeholder,
+.login-register-box-form input[name='email']::placeholder,
+.login-register-box-form input[name='password1']::placeholder,
+.login-register-box-form input[name='password2']::placeholder {
+    color: #696868;
+}
+
+.login-register-box-form-title {
+    color: #a1c755;
+    font-size: 27px;
+    margin: 5px 10px 23px 10px;
+}
+
+.login-register-box-form-button {
+    background-color: #4CAF50;
+    border: none;
+    color: #ffffff;
+    padding: 10px 26px;
+    margin-top: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
