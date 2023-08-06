@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="edit-profile">
+        <div class="edit-profile-box">
+            <h2 class="edit-profile-box-title">
+                {% csrf_token %}
+                {{ form }}
+
+            </h2>
+        </div>
+    </div>
+
+
+
+{% endblock %}

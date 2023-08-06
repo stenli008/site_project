@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="delete-section">
+        <div>
+            <h3 class="delete-section-heading">Delete Profile</h3>
+            <p class="delete-section-description">Are you sure you want to delete your profile? This action cannot be
+                undone.</p>
+            <form method="post" class="delete-form">
+                {% csrf_token %}
+                <input type="submit" value="Delete Profile" class="delete-button">
+            </form>
+        </div>
+    </section>
+{% endblock %}

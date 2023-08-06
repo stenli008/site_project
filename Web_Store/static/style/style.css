@@ -2,3 +2,6 @@
 @import "base.css";
 @import "register_login.css";
 @import "store.css";
+@import "profile_details.css";
+@import "profile_delete.css";
+@import "profile_edit.css";

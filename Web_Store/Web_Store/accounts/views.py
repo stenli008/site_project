@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
 from Web_Store.accounts.models import CustomerUser
-from Web_Store.accounts.forms import CustomerUserCreationForm, LoginForm
+from Web_Store.accounts.forms import CustomerUserCreationForm, LoginForm, CustomerUserEditForm
 
 from django.contrib.auth import views as auth_views
 
@@ -22,3 +24,32 @@ class UserLoginView(auth_views.LoginView):
 
 class UserLogoutView(auth_views.LogoutView):
     next_page = reverse_lazy('login')
+
+
+@login_required
+def get_profile_details(request, pk):
+    profile = request.user
+    context = {
+        'profile': profile,
+    }
+    return render(request, 'profile/details-page.html', context)
+
+
+@login_required
+def delete_profile(request, pk):
+    user = get_object_or_404(CustomerUser, pk=pk)
+
+    if request.method == 'POST':
+        user.delete()
+        return redirect('store')
+
+    return render(request, 'profile/delete-page.html', {'user': user})
+
+
+class UserEditView(generic.UpdateView):
+    model = CustomerUser
+    form_class = CustomerUserEditForm
+    template_name = 'profile/edit-page.html'
+
+    def get_success_url(self):
+        return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
