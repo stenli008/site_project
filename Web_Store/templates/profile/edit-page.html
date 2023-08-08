@@ -1,14 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="edit-profile">
-        <div class="edit-profile-box">
-            <h2 class="edit-profile-box-title">
+        <div class="login-register">
+            <form class="login-register-box-form" method="post"  enctype="multipart/form-data">
+                <h2 class="login-register-box-form-title">Edit</h2>
                 {% csrf_token %}
-                {{ form }}
+                {{ form.username.errors }}
+                {{ form.username}}
 
-            </h2>
+                {{ form.email.error }}
+                {{ form.email }}
+
+                {{ form.first_name.error }}
+                {{ form.first_name }}
+
+                {{ form.last_name.error }}
+                {{ form.last_name }}
+
+
+                    {{ form.profile_picture.error }}
+                    {{ form.profile_picture }}
+
+
+                <button class="login-register-box-form-button">Submit</button>
+            </form>
         </div>
-    </div>
+
 
 
 

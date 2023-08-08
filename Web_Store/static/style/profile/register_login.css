@@ -20,12 +20,11 @@
     border: none;
     border-radius: 2px;
     background-color: #36383a;
+    color: #696868;
 }
 
-.login-register-box-form input[name='username']::placeholder,
-.login-register-box-form input[name='email']::placeholder,
-.login-register-box-form input[name='password1']::placeholder,
-.login-register-box-form input[name='password2']::placeholder {
+.login-register-box-form input[type='username']::placeholder,
+.login-register-box-form input[type='password']::placeholder{
     color: #696868;
 }
 
@@ -46,3 +45,5 @@
     display: inline-block;
     font-size: 16px;
 }
+
+

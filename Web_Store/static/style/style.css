@@ -1,7 +1,7 @@
 @import "reset.css";
 @import "base.css";
-@import "register_login.css";
+@import "profile/register_login.css";
 @import "store.css";
-@import "profile_details.css";
-@import "profile_delete.css";
-@import "profile_edit.css";
+@import "profile/profile_details.css";
+@import "profile/profile_delete.css";
+@import "profile/profile_edit.css";
