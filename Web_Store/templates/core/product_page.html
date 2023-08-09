@@ -1,4 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{ product.name }}
+    <div class="product">
+        <div class="product-image">
+            <img src="{{ product.product_picture.url }}" alt="product image">
+        </div>
+        <div class="product-details">
+            <p>Category: {{ product.category }}</p>
+            <p>Product: {{ product.name }}</p>
+            <p class="product-description">{{ product.description }}</p>
+            <p>Price: ${{ product.price|floatformat:2 }}</p>
+
+            <button id="add-to-cart" onclick="window.location.href='{% url 'add_to_cart' product.id %}'"
+                    class="main-content-article-link-button">Add to Cart
+            </button>
+        </div>
+    </div>
 {% endblock %}

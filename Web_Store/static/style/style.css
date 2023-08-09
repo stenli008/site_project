@@ -1,8 +1,9 @@
 @import "reset.css";
 @import "base.css";
 @import "profile/register_login.css";
-@import "common/store.css";
 @import "profile/profile_details.css";
 @import "profile/profile_delete.css";
 @import "profile/profile_edit.css";
+@import "common/store.css";
 @import "common/cart.css";
+@import "common/product_page.css";
