@@ -19,12 +19,35 @@
 
 .order-summary-items-table {
     width: 100%;
-    border-collapse: collapse;
     margin-top: 20px;
+    border-collapse: collapse;
 }
 
 .order-summary-heading {
     color: #a1c755;
     font-size: 20px;
     padding-bottom: 20px;
+}
+
+.order-summary-items-table th, .order-summary-items-table td {
+    border: 1px solid #a1c755;
+    padding: 10px;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.table-price {
+    color: orange;
+}
+
+.checkout-button {
+    background-color: #4CAF50;
+    border: none;
+    color: #ffffff;
+    padding: 10px 26px;
+    margin-top: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }

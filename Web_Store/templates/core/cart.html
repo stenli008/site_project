@@ -5,7 +5,7 @@
         <div class="order-summary">
             <h2 class="order-summary-heading">Your order:</h2>
             <div class="order-summary-details">
-                <p>Total: {{ order.get_order_total }}</p>
+                <p class="table-price">Total: {{ order.get_order_total }}</p>
                 <p>Items: {{ order.get_order_items }}</p>
                 <button class="checkout-button">
                     Checkout
@@ -28,9 +28,9 @@
                         <tr>
                             <td>{{ item.product.product_picture }}</td>
                             <td>{{ item.product.name }}</td>
-                            <td>{{ item.product.price|floatformat:2 }}</td>
+                            <td class="table-price">{{ item.product.price|floatformat:2 }}</td>
                             <td>{{ item.quantity }}</td>
-                            <td>{{ item.get_total|floatformat:2 }}</td>
+                            <td class="table-price">{{ item.get_total|floatformat:2 }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

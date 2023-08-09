@@ -3,18 +3,24 @@
 {% block content %}
     <main class="main">
         {% for product in products %}
-        <section class="main-content">
-            <article class="main-content-article-banner"><img src="{{ product.product_picture.url }}"
-                                                              alt="product_picture"></article>
-            <div class="item-description">
-                <h3 class="main-content-article-heading"><span class="product-name">{{ product.name }}</span><span
-                        class="product-price">${{ product.price|floatformat:2 }}</span></h3>
-                <article class="main-content-article-link">
-                    <a class="main-content-article-link-button">Add to Cart</a>
-                    <a class="main-content-article-link-button">View</a>
-                </article>
-            </div>
-        </section>
+            <section class="main-content">
+                <article class="main-content-article-banner"><img src="{{ product.product_picture.url }}"
+                                                                  alt="product_picture"></article>
+                <div class="item-description">
+                    <h3 class="main-content-article-heading"><span class="product-name">{{ product.name }}</span><span
+                            class="product-price">${{ product.price|floatformat:2 }}</span></h3>
+                    <article class="main-content-article-link">
+                        {% if user.is_authenticated %}
+                            <button id="add-to-cart" onclick="window.location.href='{% url 'add_to_cart' product.id %}'"
+                                    class="main-content-article-link-button">Add to Cart
+                            </button>
+
+                        {% endif %}
+                        <a class="main-content-article-link-button" href="{% url 'product' pk=product.pk %}">View</a>
+                    </article>
+                </div>
+            </section>
         {% endfor %}
     </main>
+
 {% endblock %}
