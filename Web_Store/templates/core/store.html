@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
     <main class="main">
-{#        {% for product in products %}#}
+        {% for product in products %}
         <section class="main-content">
-            <article class="main-content-article-banner"><img src="{{ product.image.url }}"
+            <article class="main-content-article-banner"><img src="{{ product.product_picture.url }}"
                                                               alt="product_picture"></article>
-            <h3 class="main-content-article-heading"><span class="product-name">{{ product.name }}</span><span
-                    class="product-price">${{ product.price }}</span></h3>
-            <article class="main-content-article-link">
-                <button class="main-content-article-link-button">Add to Cart</button>
-                <button class="main-content-article-link-button">View</button>
-            </article>
+            <div class="item-description">
+                <h3 class="main-content-article-heading"><span class="product-name">{{ product.name }}</span><span
+                        class="product-price">${{ product.price|floatformat:2 }}</span></h3>
+                <article class="main-content-article-link">
+                    <a class="main-content-article-link-button">Add to Cart</a>
+                    <a class="main-content-article-link-button">View</a>
+                </article>
+            </div>
         </section>
-{#        {% endfor %}#}
+        {% endfor %}
     </main>
 {% endblock %}

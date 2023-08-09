@@ -13,3 +13,6 @@ class CustomerUser(AbstractUser):
         null=True,
         upload_to='profile_pics/'
     )
+
+
+
