@@ -1,3 +1,5 @@
+import uuid
+
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -27,10 +29,19 @@ class Product(models.Model):
 
 
 class Order(models.Model):
+    CHOICES = [
+        ('CANCELED', 'Canceled'),
+        ('PENDING', 'Pending'),
+        ('CONFIRMED', 'Confirmed'),
+        ('SENT', 'Sent'),
+        ('DELIVERED', 'Delivered'),
+    ]
+
     customer = models.ForeignKey(CustomerUser, on_delete=models.SET_NULL, null=True, blank=True)
     date_ordered = models.DateTimeField(auto_now_add=True, blank=True, null=False)
     complete = models.BooleanField(default=False, blank=True, null=True)
-    transaction_id = models.CharField(max_length=30, blank=True, null=True)
+    transaction_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    status = models.CharField(max_length=30, choices=CHOICES, default='PENDING')
 
     @property
     def get_order_total(self):
@@ -44,13 +55,22 @@ class Order(models.Model):
         order_total = sum([item.quantity for item in order_items])
         return order_total
 
+    @property
+    def get_address(self):
+        try:
+            shipping = Shipping.objects.get(order=self)
+            address = f'{shipping.address}, {shipping.city}'
+            return address
+        except Shipping.DoesNotExist:
+            return None
+
     def __str__(self):
         return f'Order: {self.transaction_id} made by {self.customer.username}'
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
     quantity = models.IntegerField(default=0, blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
@@ -60,15 +80,15 @@ class OrderItem(models.Model):
         return total
 
     def __str__(self):
-        return f'Order Item: {self.id} in {self.order.__str__()}'
+        return f'Item: {self.product.name} in {self.order.__str__()}'
 
 
 class Shipping(models.Model):
-    customer = models.ForeignKey(CustomerUser, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     address = models.CharField(max_length=30, blank=True, null=True)
     city = models.CharField(max_length=30, blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.address
+        return f'{self.order} - {self.address}'

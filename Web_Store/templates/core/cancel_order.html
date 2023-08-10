@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="delete-section">
+        <div>
+            <h3 class="delete-section-heading">Cancel Order</h3>
+            <p class="delete-section-description">Are you sure you want to cancel your order?
+            <form method="post" class="delete-form" action="{% url 'cancel_order' order.id %}">
+                {% csrf_token %}
+                <button class="delete-button" type="submit">
+                    Cancel Order
+                </button>
+            </form>
+            <a href="{% url 'profile-details' pk=order.customer.pk %}">Back to Profile</a>
+        </div>
+    </section>
+{% endblock %}

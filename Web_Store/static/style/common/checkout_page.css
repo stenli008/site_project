@@ -1,0 +1,9 @@
+.checkout-main {
+    display: flex;
+    margin: auto;
+}
+
+#checkout {
+    align-items: flex-end;
+    color: #697f45;
+}

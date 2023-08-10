@@ -2,6 +2,14 @@
 
 {% block content %}
     <main class="main">
+        <div class="categories">
+            <h3>Categories</h3>
+            <ul>
+                {% for category in categories %}
+                    <li><a href="{% url 'store_by_category' category_id=category.id %}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
         {% for product in products %}
             <section class="main-content">
                 <article class="main-content-article-banner"><img src="{{ product.product_picture.url }}"

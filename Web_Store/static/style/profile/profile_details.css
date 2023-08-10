@@ -1,15 +1,18 @@
 .main-profile {
-    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 20px 20px;
 }
 
 .profile {
-    margin: auto;
     display: flex;
     align-items: center;
-    border-radius: 6px;
+    border-radius: 2px;
     box-shadow: 0 0 9px 2px rgb(105 127 69);
     background-color: #2b2b2b;
     padding: 34px;
+    max-width: 574px;
 }
 
 .profile-image {
@@ -52,4 +55,38 @@
 .profile-details-buttons a:nth-child(2) {
     background-color: #dc1a1a;
     padding: 10px 16.6px;
+}
+
+.completed-orders {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column-reverse;
+    margin-left: 150px;
+    border-radius: 2px;
+    box-shadow: 0 0 9px 2px rgb(105 127 69);
+    background-color: #2b2b2b;
+    padding: 20px 40px;
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
+    color: #a1c755;
+}
+
+.delete-order-button {
+    background-color: #dc1a1a;
+    border: none;
+    color: #ffffff;
+    padding: 10px 26px;
+    margin-top: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: auto;
 }

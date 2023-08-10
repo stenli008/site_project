@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="checkout-main">
+        <form method="post" class="login-register-box-form" id="checkout">
+            {% csrf_token %}
+            <p>Address: {{ form.address }}</p>
+            <p>City: {{ form.city }}</p>
+            <button class="login-register-box-form-button" type="submit">Checkout</button>
+        </form>
+        <div class="completed-orders">
+            <div class="order">
+                <h3 class="order-heading">
+                    Order: {{ order.transaction_id }}
+                </h3>
+                <p>
+                    Date added: {{ order.date_ordered }}
+                </p>
+                <p>
+                    Total: ${{ order.get_order_total|floatformat:2 }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

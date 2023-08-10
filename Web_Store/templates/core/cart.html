@@ -7,9 +7,12 @@
             <div class="order-summary-details">
                 <p class="table-price">Total: {{ order.get_order_total }}</p>
                 <p>Items: {{ order.get_order_items }}</p>
-                <button class="checkout-button">
-                    Checkout
-                </button>
+                {% if order.get_order_total > 0.01 %}
+                    <button class="checkout-button"
+                            onclick="window.location.href='{% url 'checkout' username=request.user.username %}'">
+                        Checkout
+                    </button>
+                {% endif %}
             </div>
             <div class="order-summary-items">
                 <table class="order-summary-items-table">
@@ -26,10 +29,20 @@
                     <tbody>
                     {% for item in items %}
                         <tr>
-                            <td>{{ item.product.product_picture }}</td>
+                            <td class="table-image">
+                                <img src="{{ item.product.product_picture.url }}" alt="{{ item.product.name }}">
+                            </td>
                             <td>{{ item.product.name }}</td>
                             <td class="table-price">{{ item.product.price|floatformat:2 }}</td>
-                            <td>{{ item.quantity }}</td>
+                            <td>
+                                <form method="post" action="{% url 'update_quantity' item.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" name="action" value="decrement" class="btn">-</button>
+                                    <span>{{ item.quantity }}</span>
+                                    <button type="submit" name="action" value="increment" class="btn">+</button>
+                                </form>
+
+                            </td>
                             <td class="table-price">{{ item.get_total|floatformat:2 }}</td>
                         </tr>
                     {% endfor %}
@@ -45,3 +58,4 @@
 
 
 {% endblock %}
+

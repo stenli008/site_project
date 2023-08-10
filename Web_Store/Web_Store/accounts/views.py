@@ -8,6 +8,8 @@ from Web_Store.accounts.forms import CustomerUserCreationForm, LoginForm, Custom
 
 from django.contrib.auth import views as auth_views
 
+from Web_Store.common.models import Order
+
 
 class UserRegisterView(generic.CreateView):
     model = CustomerUser
@@ -29,8 +31,10 @@ class UserLogoutView(auth_views.LogoutView):
 @login_required
 def get_profile_details(request, pk):
     profile = request.user
+    orders = Order.objects.filter(customer=profile, complete=True)
     context = {
         'profile': profile,
+        'orders': orders,
     }
     return render(request, 'profile/details-page.html', context)
 

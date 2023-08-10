@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <main class="main-profile">
+    <div class="main-profile">
         <div class="profile">
             <section class="profile-image">
                 {% if profile.profile_picture %}
@@ -33,6 +33,33 @@
 
 
         </div>
-    </main>
+        <div class="completed-orders">
+            {% for order in orders %}
+                <div class="order">
+                    <h3 class="order-heading">
+                        Order: {{ order.transaction_id }}
+                    </h3>
+                    <p>
+                        Date added: {{ order.date_ordered }}
+                    </p>
+                    <p>
+                        Total: ${{ order.get_order_total|floatformat:2 }}
+                    </p>
+                    <p>
+                        Status: {{ order.status }}
+                    </p>
+                    <p>
+                        Sent to: {{ order.get_address }}
+                    </p>
+                    {% if not order.status == 'Canceled' %}
+                    <a class="delete-order-button" href="{% url 'cancel_order' order.id %}">
+                        Cancel Order
+                    </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
 
 {% endblock %}
