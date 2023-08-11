@@ -14,7 +14,6 @@
     <nav class="header-nav">
         <ul class="header-nav-ul">
 
-            <li><a href="">About us</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 <li><a href="{% url 'profile-details' pk=user.pk %}"><i class="fa-solid fa-user"></i></a></li>

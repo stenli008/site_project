@@ -1,16 +1,15 @@
 .main {
     display: flex;
     justify-content: flex-start;
-    flex-wrap: wrap;
     flex-direction: row;
     gap: 42px;
-    width: 75.5%;
-    margin: auto;
+    width: 84.5%;
+    margin: 14px 118px;
     padding: 28px 0 28px 0;
 }
 
 .main-content {
-    max-width: 350px;
+    max-width: 310px;
     background-color: white;
     border-radius: 14px;
 }
@@ -54,4 +53,43 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    align-content: space-between;
+}
+
+.categories {
+    font-size: 24px;
+    color: #697f45;
+    border-radius: 2px;
+    box-shadow: 0 0 9px 2px rgb(105 127 69);
+    background-color: #2b2b2b;
+    width: 361px;
+    text-align: center;
+    padding-top: 20px;
+    height: 100vh;
+}
+
+.categories h3 {
+    color: #a1c755;
+    margin-bottom: 26px;
+}
+
+.categories ul {
+    list-style: none;
+}
+
+.categories ul li {
+    padding-bottom: 17px;
+}
+
+.categories ul li a{
+    text-decoration: none;
+    color: inherit;
 }

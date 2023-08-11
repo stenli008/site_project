@@ -112,10 +112,14 @@ def update_quantity(request, item_id):
 
         if action == 'increment':
             quantity += 1
-        elif action == 'decrement' and quantity > 1:
+            item.quantity = quantity
+            item.save()
+        elif action == 'decrement':
             quantity -= 1
-
-        item.quantity = quantity
-        item.save()
+            if quantity < 1:
+                item.delete()
+            else:
+                item.quantity = quantity
+                item.save()
 
     return redirect('cart', username=user.username)

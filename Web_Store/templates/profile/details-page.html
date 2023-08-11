@@ -46,15 +46,17 @@
                         Total: ${{ order.get_order_total|floatformat:2 }}
                     </p>
                     <p>
-                        Status: {{ order.status }}
-                    </p>
-                    <p>
                         Sent to: {{ order.get_address }}
                     </p>
+                <br>
+                    <p>
+                        Status: {{ order.status }}
+                    </p>
                     {% if not order.status == 'Canceled' %}
-                    <a class="delete-order-button" href="{% url 'cancel_order' order.id %}">
-                        Cancel Order
-                    </a>
+                        <a class="delete-order-button" href="{% url 'cancel_order' order.id %}">
+                            Cancel Order
+                        </a>
+
                     {% endif %}
                 </div>
             {% endfor %}

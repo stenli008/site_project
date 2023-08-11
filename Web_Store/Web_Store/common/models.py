@@ -1,6 +1,7 @@
 import uuid
 
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from Web_Store.accounts.models import CustomerUser
@@ -9,8 +10,8 @@ from Web_Store.accounts.models import CustomerUser
 class ProductCategory(models.Model):
     name = models.CharField(
         max_length=30,
-        blank=True,
-        null=True
+        blank=False,
+        null=False,
     )
 
     def __str__(self):
@@ -19,9 +20,9 @@ class ProductCategory(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30, blank=True, null=True)
-    price = models.FloatField(blank=True, null=True)
-    product_picture = models.ImageField(upload_to='product_pics/', blank=True, null=True)
+    name = models.CharField(max_length=100, blank=False, null=False)
+    price = models.FloatField(validators=[MinValueValidator(0.0)])
+    product_picture = models.ImageField(upload_to='product_pics/', blank=False, null=False)
     description = models.TextField(max_length=300, blank=True, null=True)
 
     def __str__(self):
@@ -37,9 +38,9 @@ class Order(models.Model):
         ('DELIVERED', 'Delivered'),
     ]
 
-    customer = models.ForeignKey(CustomerUser, on_delete=models.SET_NULL, null=True, blank=True)
-    date_ordered = models.DateTimeField(auto_now_add=True, blank=True, null=False)
-    complete = models.BooleanField(default=False, blank=True, null=True)
+    customer = models.ForeignKey(CustomerUser, on_delete=models.SET_NULL, null=True, blank=False)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    complete = models.BooleanField(default=False)
     transaction_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     status = models.CharField(max_length=30, choices=CHOICES, default='PENDING')
 
@@ -65,13 +66,13 @@ class Order(models.Model):
             return None
 
     def __str__(self):
-        return f'Order: {self.transaction_id} made by {self.customer.username}'
+        return f'Order: {self.transaction_id}'
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
-    quantity = models.IntegerField(default=0, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
     date_added = models.DateTimeField(auto_now_add=True)
 
     @property
@@ -84,10 +85,10 @@ class OrderItem(models.Model):
 
 
 class Shipping(models.Model):
-    customer = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, blank=True, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
-    address = models.CharField(max_length=30, blank=True, null=True)
-    city = models.CharField(max_length=30, blank=True, null=True)
+    customer = models.ForeignKey(CustomerUser, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    address = models.CharField(max_length=30)
+    city = models.CharField(max_length=30)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
